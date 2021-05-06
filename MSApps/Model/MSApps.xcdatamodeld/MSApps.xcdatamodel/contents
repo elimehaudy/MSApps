@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Movie" representedClassName=".Movie" syncable="YES" codeGenerationType="class">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="image" attributeType="String"/>
+        <attribute name="rating" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="releaseYear" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="childGenres" toMany="YES" deletionRule="Nullify" destinationEntity="MovieGenres" inverseName="parentMovie" inverseEntity="MovieGenres"/>
+    </entity>
+    <entity name="MovieGenres" representedClassName="MovieGenres" syncable="YES" codeGenerationType="class">
+        <attribute name="genre" attributeType="String"/>
+        <relationship name="parentMovie" maxCount="1" deletionRule="Nullify" destinationEntity="Movie" inverseName="childGenres" inverseEntity="Movie"/>
+    </entity>
+    <elements>
+        <element name="Movie" positionX="-62.2073974609375" positionY="-151.3316650390625" width="128" height="133"/>
+        <element name="MovieGenres" positionX="-63" positionY="9" width="128" height="73"/>
+    </elements>
+</model>
