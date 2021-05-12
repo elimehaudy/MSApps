@@ -11,14 +11,15 @@ import CoreData
 class MoviesListViewController: UIViewController, Storyboarded{
     
     @IBOutlet weak var moviesTableView: UITableView!
-
+    
     var viewModel: MoviesListViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
-
+        registerTableViewCell()
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraTapped))
         navigationItem.setHidesBackButton(true, animated: true)
         
@@ -34,6 +35,11 @@ class MoviesListViewController: UIViewController, Storyboarded{
     @objc func cameraTapped() {
         viewModel?.openCamera()
     }
+    
+    private func registerTableViewCell() {
+        let movieCell = UINib(nibName: "MovieCell", bundle: nil)
+        moviesTableView.register(movieCell, forCellReuseIdentifier: "movieCell")
+    }
 }
 
 extension MoviesListViewController: UITableViewDataSource {
@@ -42,9 +48,16 @@ extension MoviesListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell")!
-        cell.textLabel?.text = viewModel?.moviesArray[indexPath.row].title
-        return cell
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell") as? MovieCell {
+            if let movieImage = viewModel?.moviesArray[indexPath.row].image {
+                cell.cellImage.image = UIImage(named: "movieLogo")
+                cell.cellImage.loadImageFromURL(url: URL(string: movieImage)!)
+            }
+            cell.cellTitle.text = viewModel?.moviesArray[indexPath.row].title
+            return cell
+        } else {
+            return UITableViewCell()
+        }
     }
 }
 
