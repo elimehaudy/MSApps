@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MovieDetailsViewController: UIViewController, Storyboarded {
     
@@ -30,7 +31,7 @@ class MovieDetailsViewController: UIViewController, Storyboarded {
 
     func populateViewWithDetails() {
         if selectedMovie != nil {
-            imageView.loadImageFromURL(url: URL(string: selectedMovie!.image!)!)
+            imageView.sd_setImage(with: URL(string: selectedMovie!.image!), placeholderImage: UIImage(named: "movieLogo"))
             titleLabel.text = selectedMovie?.title
             if let yearInt = selectedMovie?.releaseYear {
                 yearLabel.text = String(yearInt)

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import SDWebImage
 
 class MoviesListViewController: UIViewController, Storyboarded{
     
@@ -47,11 +48,14 @@ extension MoviesListViewController: UITableViewDataSource {
         return viewModel?.moviesArray.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell") as? MovieCell {
             if let movieImage = viewModel?.moviesArray[indexPath.row].image {
-                cell.cellImage.image = UIImage(named: "movieLogo")
-                cell.cellImage.loadImageFromURL(url: URL(string: movieImage)!)
+                cell.cellImage.sd_setImage(with: URL(string: movieImage), placeholderImage: UIImage(named: "movieLogo"))
             }
             cell.cellTitle.text = viewModel?.moviesArray[indexPath.row].title
             return cell

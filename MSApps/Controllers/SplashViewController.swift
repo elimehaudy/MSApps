@@ -13,7 +13,6 @@ class SplashViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     override func viewWillAppear(_ animated: Bool) {
